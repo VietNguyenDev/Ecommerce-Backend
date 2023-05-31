@@ -12,16 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateProduct = void 0;
-const product_service_1 = __importDefault(require("../../service/product.service"));
+exports.updateCategory = void 0;
+const categories_service_1 = __importDefault(require("../../service/categories.service"));
 const error_1 = require("../../helper/error");
-function updateProduct(req, res) {
+function updateCategory(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { id } = req.params;
-            const { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription } = req.body;
+            const { categoryName } = req.body;
             const parseId = parseInt(id);
-            const data = yield product_service_1.default.updateProduct(parseId, { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
+            const data = yield categories_service_1.default.updateCategory(parseId, { categoryName });
             return res.status(200).send({
                 message: 'Update data successfully',
                 data: data
@@ -32,5 +32,5 @@ function updateProduct(req, res) {
         }
     });
 }
-exports.updateProduct = updateProduct;
-//# sourceMappingURL=updateProduct.controller.js.map
+exports.updateCategory = updateCategory;
+//# sourceMappingURL=updateCategory.controller.js.map

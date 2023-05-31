@@ -7,7 +7,7 @@ export async function updateProduct(req: Request, res: Response) {
         const { id } = req.params;
 
         const { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription } = req.body;
-        const parseId = parseInt(id as string, 10);
+        const parseId = parseInt(id);
 
         const data = await productService.updateProduct(parseId, { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
 
