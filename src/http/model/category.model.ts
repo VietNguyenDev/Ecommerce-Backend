@@ -2,10 +2,10 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from './db';
 
 class Category extends Model<InferAttributes<Category>, InferCreationAttributes<Category>> {
-    declare id: CreationOptional<number>;
-    declare categoryName: string;
-    declare createdAt: Date;
-    declare updatedAt: Date;
+    public id!: CreationOptional<number>;
+    public categoryName?: string;
+    public createdAt?: Date;
+    public updatedAt?: Date;
 }
 
 Category.init({

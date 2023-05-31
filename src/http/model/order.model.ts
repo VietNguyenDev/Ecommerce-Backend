@@ -2,12 +2,12 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from './db';
 
 class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
-    declare id: CreationOptional<number>;
-    declare userId: number;
-    declare status: string;
-    declare shippingId: number;
-    declare createdAt: Date;
-    declare updatedAt: Date;
+    public id!: CreationOptional<number>;
+    public userId!: number;
+    public status?: string;
+    public shippingId!: number;
+    public createdAt?: Date;
+    public updatedAt?: Date;
 }
 
 Order.init({

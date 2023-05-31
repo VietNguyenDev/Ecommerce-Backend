@@ -2,15 +2,15 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreateOptio
 import sequelize from "./db";
 
 class Cart extends Model<InferAttributes<Cart>, InferCreationAttributes<Cart>> {
-    declare id: number;
-    declare userId: number;
-    declare productId: number;
-    declare quantity: number;
-    declare subTotal: number;
-    declare productColor: string;
-    declare productSize: string;
-    declare createdAt: Date;
-    declare updateAt: Date
+    public id!: number;
+    public userId!: number;
+    public productId!: number;
+    public quantity?: number;
+    public subTotal?: number;
+    public productColor?: string;
+    public productSize?: string;
+    public createdAt?: Date;
+    public updateAt?: Date
 }
 
 Cart.init({

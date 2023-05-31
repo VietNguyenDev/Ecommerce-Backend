@@ -2,12 +2,12 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from './db';
 
 class Comment extends Model<InferAttributes<Comment>, InferCreationAttributes<Comment>> {
-    declare id: CreationOptional<number>;
-    declare productId: number;
-    declare userId: number;
-    declare content: Text;
-    declare createdAt: Date;
-    declare updatedAt: Date;
+    public id!: CreationOptional<number>;
+    public productId!: number;
+    public userId!: number;
+    public content?: Text;
+    public createdAt?: Date;
+    public updatedAt?: Date;
 }
 
 Comment.init({

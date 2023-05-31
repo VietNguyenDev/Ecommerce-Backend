@@ -2,11 +2,11 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from './db';
 
 class Favorite extends Model<InferAttributes<Favorite>, InferCreationAttributes<Favorite>> {
-    declare id: CreationOptional<number>;
-    declare productId: number;
-    declare userId: number;
-    declare createdAt: Date;
-    declare updatedAt: Date;
+    public id!: CreationOptional<number>;
+    public productId!: number;
+    public userId!: number;
+    public createdAt?: Date;
+    public updatedAt?: Date;
 }
 
 Favorite.init({

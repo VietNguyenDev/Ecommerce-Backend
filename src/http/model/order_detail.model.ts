@@ -2,16 +2,16 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from './db';
 
 class OrderDetail extends Model<InferAttributes<OrderDetail>, InferCreationAttributes<OrderDetail>> {
-    declare id: CreationOptional<number>;
-    declare price: number;
-    declare orderId: number;
-    declare productId: number;
-    declare cartId: number;
-    declare quantity: number;
-    declare productColor: string;
-    declare productSize: string;
-    declare createdAt: Date;
-    declare updatedAt: Date;
+    public id!: CreationOptional<number>;
+    public price?: number;
+    public orderId!: number;
+    public productId!: number;
+    public cartId!: number;
+    public quantity?: number;
+    public productColor?: string;
+    public productSize?: string;
+    public createdAt?: Date;
+    public updatedAt?: Date;
 }
 
 OrderDetail.init({

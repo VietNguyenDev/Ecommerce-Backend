@@ -2,17 +2,17 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from './db';
 
 class Shipping extends Model<InferAttributes<Shipping>, InferCreationAttributes<Shipping>> {
-    declare id: CreationOptional<number>;
-    declare userId: number;
-    declare fullName: string;
-    declare address: string;
-    declare province: string;
-    declare district: string;
-    declare ward: string;
-    declare postcode: string;
-    declare phone: string;
-    declare createdAt: Date;
-    declare updatedAt: Date
+    public id!: CreationOptional<number>;
+    public userId!: number;
+    public fullName?: string;
+    public address?: string;
+    public province?: string;
+    public district?: string;
+    public ward?: string;
+    public postcode?: string;
+    public phone?: string;
+    public createdAt?: Date;
+    public updatedAt?: Date
 }
 
 Shipping.init({

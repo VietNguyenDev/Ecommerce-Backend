@@ -2,13 +2,13 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from './db';
 
 class Payment extends Model<InferAttributes<Payment>, InferCreationAttributes<Payment>> {
-    declare id: CreationOptional<number>;
-    declare userId: number;
-    declare orderId: number;
-    declare status: string;
-    declare code: number;
-    declare createdAt: Date;
-    declare updatedAt: Date;
+    public id!: CreationOptional<number>;
+    public userId!: number;
+    public orderId!: number;
+    public status?: string;
+    public code?: number;
+    public createdAt?: Date;
+    public updatedAt?: Date;
 }
 
 Payment.init({

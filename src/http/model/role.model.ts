@@ -2,8 +2,8 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from './db';
 
 class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
-    declare id: CreationOptional<number>;
-    declare name: string
+    public id!: CreationOptional<number>;
+    public name?: string
 }
 
 Role.init({

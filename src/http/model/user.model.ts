@@ -2,19 +2,19 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 import sequelize from './db';
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-    declare id: CreationOptional<number>;
-    declare email: string;
-    declare password: string;
-    declare role: number;
-    declare fullName: string;
-    declare phoneNumber: string;
-    declare dateOfBirth: Date;
-    declare address: string;
-    declare gender: number;
-    declare image: string;
-    declare refreshToken: string;
-    declare createdAt: Date;
-    declare updatedAt: Date;
+    public id!: CreationOptional<number>;
+    public email!: string;
+    public password!: string;
+    public role!: number;
+    public fullName?: string;
+    public phoneNumber?: string;
+    public dateOfBirth?: Date;
+    public address?: string;
+    public gender?: number;
+    public image?: string;
+    public refreshToken?: string;
+    public createdAt?: Date;
+    public updatedAt?: Date;
 }
 
 User.init({
