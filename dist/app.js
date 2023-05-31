@@ -30,9 +30,10 @@ const dotenv = __importStar(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const express_1 = __importDefault(require("express"));
+const product_routes_1 = __importDefault(require("./http/routes/product.routes"));
 //App variables
 dotenv.config();
-const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
 //App config
 const app = (0, express_1.default)();
 app.use((0, helmet_1.default)());
@@ -41,6 +42,7 @@ app.use(express_1.default.json());
 app.get('/', (req, res) => {
     res.send('HomePage');
 });
+app.use('/api', product_routes_1.default);
 app.listen(port, () => {
     return console.log(`server is listening on ${port}`);
 });
