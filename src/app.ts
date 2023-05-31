@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import express, {Application, Request, Response} from 'express';
 import productRoute from "./http/routes/product.routes";
+import categoryRoute from "./http/routes/category.routes";
 
 //App variables
 dotenv.config();
@@ -19,6 +20,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/api', productRoute);
+app.use('/api', categoryRoute);
 
 app.listen(port, () => {
     return console.log(`server is listening on ${port}`);
