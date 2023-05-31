@@ -1,12 +1,13 @@
 import productService from "../../service/product.service";
 import { abort } from "../../helper/error";
 import { Request, Response } from "express";
+
 interface getListOptions {
     limit: number;
     page: number
 }
 
-export async function getAllProducts(req: Request, res: Response): Promise<Response<any, Record<string, any>>> {
+export async function getAllProducts(req: Request, res: Response) {
     try {
         const { limit, page } = req.query;
 
