@@ -70,7 +70,6 @@ async function deleteProduct(id: number) {
 async function updateProduct(id: number, {productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription}: ProductOptions) {
     try {
         const product = await db.models.Product.findByPk(id);
-
         if(!product) {
             abort(404, "Product not already exists");
         }

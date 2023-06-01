@@ -13,6 +13,7 @@ Category.init({
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             primaryKey: true,
+            autoIncrement: true
         },
         categoryName: {
             type: DataTypes.STRING(255),

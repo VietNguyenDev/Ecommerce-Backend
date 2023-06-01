@@ -20,6 +20,7 @@ Product.init({
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             primaryKey: true,
+            autoIncrement: true,
         },
         productName: {
             type: DataTypes.STRING(255),
