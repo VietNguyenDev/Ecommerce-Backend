@@ -12,6 +12,7 @@ User.init({
         type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true
     },
     email: {
         type: sequelize_1.DataTypes.STRING(255),

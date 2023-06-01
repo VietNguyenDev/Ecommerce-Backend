@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import express, {Application, Request, Response} from 'express';
 import productRoute from "./http/routes/product.routes";
 import categoryRoute from "./http/routes/category.routes";
+import userRoute from "./http/routes/user.routes";
 
 //App variables
 dotenv.config();
@@ -23,6 +24,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api', productRoute);
 app.use('/api', categoryRoute);
+app.use('/api', userRoute);
 
 app.listen(port, () => {
     return console.log(`server is listening on ${port}`);
