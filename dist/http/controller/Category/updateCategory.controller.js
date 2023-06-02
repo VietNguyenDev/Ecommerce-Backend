@@ -13,13 +13,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateCategory = void 0;
+const joi_1 = __importDefault(require("joi"));
 const categories_service_1 = __importDefault(require("../../service/categories.service"));
 const error_1 = require("../../helper/error");
+function validate(categoryName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const schema = joi_1.default.object({
+                categoryName: joi_1.default.string().required(),
+            });
+            return schema.validateAsync({ categoryName });
+        }
+        catch (error) {
+            return (0, error_1.abort)(400, 'Validate error');
+        }
+    });
+}
 function updateCategory(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { id } = req.params;
             const { categoryName } = req.body;
+            yield validate(categoryName);
             const parseId = parseInt(id);
             const data = yield categories_service_1.default.updateCategory(parseId, { categoryName });
             return res.status(200).send({

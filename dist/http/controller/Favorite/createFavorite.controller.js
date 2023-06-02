@@ -13,12 +13,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createFavorite = void 0;
+const joi_1 = __importDefault(require("joi"));
 const favorite_service_1 = __importDefault(require("../../service/favorite.service"));
 const error_1 = require("../../helper/error");
+function validate(userId, productId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const schema = joi_1.default.object({
+                userId: joi_1.default.number().required(),
+                productId: joi_1.default.number().required(),
+            });
+            return schema.validateAsync({ userId, productId });
+        }
+        catch (error) {
+            return (0, error_1.abort)(400, 'Validate error');
+        }
+    });
+}
 function createFavorite(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { userId, productId } = req.body;
+            yield validate(userId, productId);
             const data = yield favorite_service_1.default.createFavorite({ userId, productId });
             return res.status(200).json({
                 message: "Create favorite successfully",
