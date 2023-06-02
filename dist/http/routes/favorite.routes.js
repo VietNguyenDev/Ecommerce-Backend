@@ -9,7 +9,7 @@ const deleteFavorite_controller_1 = require("../controller/Favorite/deleteFavori
 const createFavorite_controller_1 = require("../controller/Favorite/createFavorite.controller");
 const router = express_1.default.Router();
 router.get("/favorite/:userId", getFavoriteById_controller_1.getFavoriteByUserId);
-router.delete("/favorite/:id", deleteFavorite_controller_1.deleteFavorite);
+router.post("/favorite/:id", deleteFavorite_controller_1.deleteFavorite);
 router.post("/favorite", createFavorite_controller_1.createFavorite);
 exports.default = router;
 //# sourceMappingURL=favorite.routes.js.map

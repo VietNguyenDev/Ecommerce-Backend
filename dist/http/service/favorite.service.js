@@ -19,7 +19,7 @@ function createFavorite({ userId, productId }) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield product_service_1.default.getProductById(productId);
-            const favorite = yield model_1.default.models.Favorite.create({ userId, productId });
+            const favorite = yield model_1.default.models.Favorite.findOne({ where: { productId: productId } });
             if (favorite) {
                 return (0, error_1.abort)(400, "Product already exists in favorite list");
             }
