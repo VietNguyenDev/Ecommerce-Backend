@@ -6,7 +6,7 @@ import { createFavorite } from "../controller/Favorite/createFavorite.controller
 const router = express.Router();
 
 router.get("/favorite/:userId", getFavoriteByUserId);
-router.delete("/favorite/:id", deleteFavorite);
+router.post("/favorite/:id", deleteFavorite);
 router.post("/favorite", createFavorite);
 
 export default router;

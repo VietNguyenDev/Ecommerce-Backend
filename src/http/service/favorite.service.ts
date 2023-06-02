@@ -10,7 +10,7 @@ interface Favorite {
 async function createFavorite({userId, productId}: Favorite) {
     try {
         await productService.getProductById(productId);
-        const favorite = await db.models.Favorite.create({userId, productId});
+        const favorite = await db.models.Favorite.findOne({where: {productId: productId}});
 
         if(favorite){
             return abort(400, "Product already exists in favorite list");
