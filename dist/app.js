@@ -35,6 +35,8 @@ const product_routes_1 = __importDefault(require("./http/routes/product.routes")
 const category_routes_1 = __importDefault(require("./http/routes/category.routes"));
 const user_routes_1 = __importDefault(require("./http/routes/user.routes"));
 const favorite_routes_1 = __importDefault(require("./http/routes/favorite.routes"));
+const comment_routes_1 = __importDefault(require("./http/routes/comment.routes"));
+const shipping_routes_1 = __importDefault(require("./http/routes/shipping.routes"));
 //App variables
 dotenv.config();
 const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
@@ -52,6 +54,8 @@ app.use('/api', product_routes_1.default);
 app.use('/api', category_routes_1.default);
 app.use('/api', user_routes_1.default);
 app.use('/api', favorite_routes_1.default);
+app.use('/api', comment_routes_1.default);
+app.use('/api', shipping_routes_1.default);
 app.listen(port, () => {
     return console.log(`server is listening on ${port}`);
 });

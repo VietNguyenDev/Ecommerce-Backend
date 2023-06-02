@@ -8,6 +8,7 @@ import categoryRoute from "./http/routes/category.routes";
 import userRoute from "./http/routes/user.routes";
 import favoriteRoute from "./http/routes/favorite.routes";
 import commentRoute from "./http/routes/comment.routes";
+import shippingRoute from "./http/routes/shipping.routes";
 
 //App variables
 dotenv.config();
@@ -30,6 +31,7 @@ app.use('/api', categoryRoute);
 app.use('/api', userRoute);
 app.use('/api', favoriteRoute);
 app.use('/api', commentRoute);
+app.use('/api', shippingRoute);
 
 app.listen(port, () => {
     return console.log(`server is listening on ${port}`);
