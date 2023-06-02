@@ -34,6 +34,7 @@ const express_1 = __importDefault(require("express"));
 const product_routes_1 = __importDefault(require("./http/routes/product.routes"));
 const category_routes_1 = __importDefault(require("./http/routes/category.routes"));
 const user_routes_1 = __importDefault(require("./http/routes/user.routes"));
+const favorite_routes_1 = __importDefault(require("./http/routes/favorite.routes"));
 //App variables
 dotenv.config();
 const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
@@ -46,9 +47,11 @@ app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.send('HomePage');
 });
+//routers
 app.use('/api', product_routes_1.default);
 app.use('/api', category_routes_1.default);
 app.use('/api', user_routes_1.default);
+app.use('/api', favorite_routes_1.default);
 app.listen(port, () => {
     return console.log(`server is listening on ${port}`);
 });
