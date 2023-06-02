@@ -15,6 +15,7 @@ Comment.init({
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             primaryKey: true,
+            autoIncrement: true,
         },
         productId: {
             type: DataTypes.INTEGER.UNSIGNED,
