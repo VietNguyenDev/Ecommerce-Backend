@@ -10,7 +10,7 @@ const deleteComment_controller_1 = require("../controller/Comment/deleteComment.
 const updateComment_controller_1 = require("../controller/Comment/updateComment.controller");
 const router = express_1.default.Router();
 router.get("/comment/:productId", getAllComment_controller_1.getCommentByProductId);
-router.delete("/comment/:id", deleteComment_controller_1.deleteComment);
+router.post("/comment/:id", deleteComment_controller_1.deleteComment);
 router.post("/comment", createComment_controller_1.createComment);
 router.put("/comment/:id", updateComment_controller_1.updateComment);
 exports.default = router;
