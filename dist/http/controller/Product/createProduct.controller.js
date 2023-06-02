@@ -13,12 +13,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createProduct = void 0;
+const joi_1 = __importDefault(require("joi"));
 const product_service_1 = __importDefault(require("../../service/product.service"));
 const error_1 = require("../../helper/error");
+function validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const schema = joi_1.default.object({
+                productName: joi_1.default.string().required(),
+                productCode: joi_1.default.string().required(),
+                productImg: joi_1.default.string().required(),
+                productSize: joi_1.default.string().required(),
+                productColor: joi_1.default.string().required(),
+                originalPrice: joi_1.default.number().min(0).required(),
+                discount: joi_1.default.number().min(0).required(),
+                productDescription: joi_1.default.string().required(),
+            });
+            return schema.validateAsync({ productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
+        }
+        catch (error) {
+            return (0, error_1.abort)(400, 'Validate error');
+        }
+    });
+}
 function createProduct(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription } = req.body;
+            yield validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription);
             const data = yield product_service_1.default.createProduct({ productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
             return res.status(200).send({
                 message: 'Create data successfully',

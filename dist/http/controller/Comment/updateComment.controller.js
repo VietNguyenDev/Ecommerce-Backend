@@ -13,14 +13,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateComment = void 0;
+const joi_1 = __importDefault(require("joi"));
 const comment_service_1 = __importDefault(require("../../service/comment.service"));
 const error_1 = require("../../helper/error");
+function validate(content) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const schema = joi_1.default.object({
+                content: joi_1.default.string().required(),
+            });
+            return schema.validateAsync({ content });
+        }
+        catch (error) {
+            return (0, error_1.abort)(400, 'Validate error');
+        }
+    });
+}
 function updateComment(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { id } = req.params;
             const parserId = parseInt(id);
             const { content } = req.body;
+            yield validate(content);
             const data = yield comment_service_1.default.updateComment(parserId, content);
             return res.status(200).send({
                 message: "Update comment successfully",

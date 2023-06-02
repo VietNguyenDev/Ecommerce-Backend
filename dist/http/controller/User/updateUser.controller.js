@@ -13,14 +13,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUser = void 0;
+const joi_1 = __importDefault(require("joi"));
 const user_service_1 = __importDefault(require("../../service/user.service"));
 const error_1 = require("../../helper/error");
+function validate(fullName, phoneNumber, dateOfBirth, address, gender, image) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const schema = joi_1.default.object({
+                fullName: joi_1.default.string().required(),
+                phoneNumber: joi_1.default.string().required(),
+                dateOfBirth: joi_1.default.date().required(),
+                address: joi_1.default.string().required(),
+                gender: joi_1.default.number().min(1).max(2).required(),
+                image: joi_1.default.string().required(),
+            });
+            return schema.validateAsync({ fullName, phoneNumber, dateOfBirth, address, gender, image });
+        }
+        catch (error) {
+            return (0, error_1.abort)(400, 'Validate error');
+        }
+    });
+}
 function updateUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { id } = req.params;
             const parsedId = parseInt(id, 10);
             const { fullName, phoneNumber, dateOfBirth, address, gender, image } = req.body;
+            yield validate(fullName, phoneNumber, dateOfBirth, address, gender, image);
             const data = yield user_service_1.default.updateUser(parsedId, { fullName, phoneNumber, dateOfBirth, address, gender, image });
             return res.status(200).send({
                 message: 'Update successfully',
