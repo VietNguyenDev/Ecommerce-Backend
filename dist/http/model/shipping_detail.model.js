@@ -11,7 +11,8 @@ Shipping.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     userId: {
         type: sequelize_1.DataTypes.INTEGER.UNSIGNED
