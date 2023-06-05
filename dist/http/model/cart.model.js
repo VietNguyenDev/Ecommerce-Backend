@@ -11,7 +11,8 @@ Cart.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     userId: {
         type: sequelize_1.DataTypes.INTEGER.UNSIGNED
@@ -35,7 +36,7 @@ Cart.init({
         type: sequelize_1.DataTypes.DATE,
         defaultValue: sequelize_1.DataTypes.NOW
     },
-    updateAt: {
+    updatedAt: {
         type: sequelize_1.DataTypes.DATE,
         defaultValue: sequelize_1.DataTypes.NOW
     }

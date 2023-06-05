@@ -10,14 +10,15 @@ class Cart extends Model<InferAttributes<Cart>, InferCreationAttributes<Cart>> {
     public productColor?: string;
     public productSize?: string;
     public createdAt?: Date;
-    public updateAt?: Date
+    public updatedAt?: Date
 }
 
 Cart.init({
         id: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
         userId: {
             type: DataTypes.INTEGER.UNSIGNED
@@ -41,7 +42,7 @@ Cart.init({
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW
         },
-        updateAt: {
+        updatedAt: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW
         }

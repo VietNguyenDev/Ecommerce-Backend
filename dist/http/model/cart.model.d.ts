@@ -8,6 +8,6 @@ declare class Cart extends Model<InferAttributes<Cart>, InferCreationAttributes<
     productColor?: string;
     productSize?: string;
     createdAt?: Date;
-    updateAt?: Date;
+    updatedAt?: Date;
 }
 export default Cart;
