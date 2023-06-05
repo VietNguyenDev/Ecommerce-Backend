@@ -13,12 +13,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addItemToCart = void 0;
+const joi_1 = __importDefault(require("joi"));
 const cart_service_1 = __importDefault(require("../../service/cart.service"));
 const error_1 = require("../../helper/error");
+function validate(productId, userId, quantity, productSize, productColor) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const schema = joi_1.default.object({
+                productId: joi_1.default.string().required(),
+                userId: joi_1.default.string().required(),
+                quantity: joi_1.default.number().required(),
+                productSize: joi_1.default.string().required(),
+                productColor: joi_1.default.string().required(),
+            });
+            return schema.validateAsync({ productId, userId, quantity, productSize, productColor });
+        }
+        catch (error) {
+            return (0, error_1.abort)(400, 'Validate error');
+        }
+    });
+}
 function addItemToCart(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { productId, userId, quantity, productSize, productColor } = req.body;
+            yield validate(productId, userId, quantity, productSize, productColor);
             const result = yield cart_service_1.default.addItemToCart({ productId, userId, quantity, productSize, productColor });
             res.status(200).send({
                 message: "Add item to cart successfully",
