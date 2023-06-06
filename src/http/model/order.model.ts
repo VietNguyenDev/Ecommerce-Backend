@@ -15,6 +15,7 @@ Order.init({
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             primaryKey: true,
+            autoIncrement: true,
         },
         userId: {
             type: DataTypes.INTEGER.UNSIGNED,

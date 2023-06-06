@@ -18,7 +18,8 @@ OrderDetail.init({
         id: {
             type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
         price: {
             type: DataTypes.INTEGER.UNSIGNED
