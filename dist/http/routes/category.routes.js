@@ -9,11 +9,12 @@ const getCategoryById_controller_1 = require("../controller/Category/getCategory
 const createCategory_controller_1 = require("../controller/Category/createCategory.controller");
 const deleteCategory_controller_1 = require("../controller/Category/deleteCategory.controller");
 const updateCategory_controller_1 = require("../controller/Category/updateCategory.controller");
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
 router.get("/category", getAllCategory_controller_1.getAllCategories);
 router.get("/category/:id", getCategoryById_controller_1.getCategoryById);
-router.post("/category", createCategory_controller_1.createCategory);
-router.post("/category/:id", deleteCategory_controller_1.deleteCategory);
-router.put("/category/:id", updateCategory_controller_1.updateCategory);
+router.post("/category", auth_1.auth, createCategory_controller_1.createCategory);
+router.post("/category/:id", auth_1.auth, deleteCategory_controller_1.deleteCategory);
+router.put("/category/:id", auth_1.auth, updateCategory_controller_1.updateCategory);
 exports.default = router;
 //# sourceMappingURL=category.routes.js.map
