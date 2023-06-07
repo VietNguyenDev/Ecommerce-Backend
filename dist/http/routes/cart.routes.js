@@ -9,11 +9,12 @@ const deleteCart_controller_1 = require("../controller/Cart/deleteCart.controlle
 const emptyCart_controller_1 = require("../controller/Cart/emptyCart.controller");
 const getCart_controller_1 = require("../controller/Cart/getCart.controller");
 const updateCart_controller_1 = require("../controller/Cart/updateCart.controller");
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
-router.get('/cart/:userId', getCart_controller_1.getCart);
-router.post('/cart', addItemToCart_controller_1.addItemToCart);
-router.put('/cart/:id', updateCart_controller_1.updateCart);
-router.post('/cart/:id', deleteCart_controller_1.deleteCart);
-router.post('/cart/empty/:userId', emptyCart_controller_1.emptyCart);
+router.get('/cart/:userId', auth_1.auth, getCart_controller_1.getCart);
+router.post('/cart', auth_1.auth, addItemToCart_controller_1.addItemToCart);
+router.put('/cart/:id', auth_1.auth, updateCart_controller_1.updateCart);
+router.post('/cart/:id', auth_1.auth, deleteCart_controller_1.deleteCart);
+router.post('/cart/empty/:userId', auth_1.auth, emptyCart_controller_1.emptyCart);
 exports.default = router;
 //# sourceMappingURL=cart.routes.js.map
