@@ -16,7 +16,7 @@ exports.verifyToken = exports.generateToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function generateToken(payload) {
     return __awaiter(this, void 0, void 0, function* () {
-        const token = jsonwebtoken_1.default.sign(payload, process.env.ACCESS_TOKEN, {
+        const token = jsonwebtoken_1.default.sign(payload, process.env.JWT_KEY, {
             algorithm: 'HS256',
             expiresIn: '1h'
         });
@@ -28,7 +28,7 @@ exports.generateToken = generateToken;
 function verifyToken(token) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const data = jsonwebtoken_1.default.verify(token, process.env.ACCESS_TOKEN, {
+            const data = jsonwebtoken_1.default.verify(token, process.env.JWT_KEY, {
                 algorithms: ['HS256'],
             });
             return data;

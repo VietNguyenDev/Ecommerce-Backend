@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export async function generateToken(payload: any) {
-    const token = jwt.sign(payload, process.env.ACCESS_TOKEN as string, {
+    const token = jwt.sign(payload, process.env.JWT_KEY as string, {
         algorithm: 'HS256',
         expiresIn: '1h'
     });
@@ -10,7 +10,7 @@ export async function generateToken(payload: any) {
 
 export async function verifyToken(token: string) {
     try {
-        const data = jwt.verify(token, process.env.ACCESS_TOKEN as string, {
+        const data = jwt.verify(token, process.env.JWT_KEY as string, {
             algorithms: ['HS256'],
         });
 
