@@ -8,10 +8,11 @@ const createComment_controller_1 = require("../controller/Comment/createComment.
 const getAllComment_controller_1 = require("../controller/Comment/getAllComment.controller");
 const deleteComment_controller_1 = require("../controller/Comment/deleteComment.controller");
 const updateComment_controller_1 = require("../controller/Comment/updateComment.controller");
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
 router.get("/comment/:productId", getAllComment_controller_1.getCommentByProductId);
-router.post("/comment/:id", deleteComment_controller_1.deleteComment);
-router.post("/comment", createComment_controller_1.createComment);
-router.put("/comment/:id", updateComment_controller_1.updateComment);
+router.post("/comment/:id", auth_1.auth, deleteComment_controller_1.deleteComment);
+router.post("/comment", auth_1.auth, createComment_controller_1.createComment);
+router.put("/comment/:id", auth_1.auth, updateComment_controller_1.updateComment);
 exports.default = router;
 //# sourceMappingURL=comment.routes.js.map
