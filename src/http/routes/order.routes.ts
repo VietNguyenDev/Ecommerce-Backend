@@ -12,7 +12,7 @@ router.post('/order/:userId', createOrder);
 router.get('/order', getAllOrders);
 router.get('/order/user/:userId', getAllOrdersByUserId);
 router.get('/order/:id', getOrderById);
-router.get('/order/:id/detail', getOrderDetailById);
-router.put('/order/:id/status', updateStatus);
+router.get('/order/detail/:id', getOrderDetailById);
+router.put('/order/status/:orderId', updateStatus);
 
 export default router;
