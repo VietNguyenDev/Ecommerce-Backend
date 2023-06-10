@@ -11,6 +11,7 @@ import commentRoute from "./http/routes/comment.routes";
 import shippingRoute from "./http/routes/shipping.routes";
 import cartRoute from "./http/routes/cart.routes";
 import orderRoute from "./http/routes/order.routes";
+import authRoute from "./http/routes/auth.routes";
 
 //App variables
 dotenv.config();
@@ -36,7 +37,9 @@ app.use('/api', commentRoute);
 app.use('/api', shippingRoute);
 app.use('/api', cartRoute);
 app.use('/api', orderRoute);
+app.use('/api', authRoute);
+
 
 app.listen(port, () => {
-    return console.log(`server is listening on ${port}`);
+    return console.log(`Server is listening on ${port}`);
 });

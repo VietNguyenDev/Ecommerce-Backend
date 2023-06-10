@@ -8,10 +8,11 @@ const getAllUser_controller_1 = require("../controller/User/getAllUser.controlle
 const getUserById_controller_1 = require("../controller/User/getUserById.controller");
 const updateUser_controller_1 = require("../controller/User/updateUser.controller");
 const deleteUser_controller_1 = require("../controller/User/deleteUser.controller");
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
-router.get('/user', getAllUser_controller_1.getAllUser);
-router.get('/user/:id', getUserById_controller_1.getUserById);
-router.put('/user/:id', updateUser_controller_1.updateUser);
-router.post('/user/:id', deleteUser_controller_1.deleteUser);
+router.get('/user', auth_1.auth, getAllUser_controller_1.getAllUser);
+router.get('/user/:id', auth_1.auth, getUserById_controller_1.getUserById);
+router.put('/user/:id', auth_1.auth, updateUser_controller_1.updateUser);
+router.post('/user/:id', auth_1.auth, deleteUser_controller_1.deleteUser);
 exports.default = router;
 //# sourceMappingURL=user.routes.js.map
