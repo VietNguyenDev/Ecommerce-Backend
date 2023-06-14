@@ -4,9 +4,9 @@ import { abort } from "../../helper/error";
 
 export async function getOrderById(req: Request, res: Response) {
     try {
-        const { orderId } = req.params;
+        const { id } = req.params;
 
-        const parserId = parseInt(orderId as string);
+        const parserId = parseInt(id as string);
 
         const result = await orderService.getOrderById(parserId);
 
