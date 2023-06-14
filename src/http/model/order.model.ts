@@ -1,5 +1,6 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional, Association } from 'sequelize';
 import sequelize from './db';
+import Shipping from './shipping_detail.model';
 
 class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
     public id!: CreationOptional<number>;
@@ -8,6 +9,12 @@ class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>
     public shippingId!: number;
     public createdAt?: Date;
     public updatedAt?: Date;
+
+    public readonly shipping?: Shipping;
+
+    public static associations: {
+        shipping: Association<Order, Shipping>;
+    };
 }
 
 Order.init({
@@ -40,5 +47,8 @@ Order.init({
         modelName: 'Order',
     }
 );
+
+Order.belongsTo(Shipping, { foreignKey: 'shippingId', as: 'shipping' });
+
 
 export default Order;

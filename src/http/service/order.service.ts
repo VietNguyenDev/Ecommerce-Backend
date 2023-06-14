@@ -44,10 +44,9 @@ async function getAllOrdersByUserId({page, limit, userId, sortBy}: {page: number
         if (page < 1 || limit < 1) {
             return abort(500, 'Invalid page or limit');
         }
-
         const result = await db.models.Order.findAndCountAll({
             where: { userId: userId },
-            order: [[sortBy, 'DESC']],
+            order: [['id', sortBy || 'DESC']],
             offset: (page - 1) * limit,
             include: [
                 {
@@ -58,7 +57,7 @@ async function getAllOrdersByUserId({page, limit, userId, sortBy}: {page: number
             limit: limit,
         });
 
-        if(!result) {
+        if(result.rows.length === 0) {
             return abort(500, 'Order not found');
         }
 
@@ -111,7 +110,7 @@ async function getAllOrders({page, limit}: {page: number, limit: number}) {
 
 async function getOrderById(id: number) {
     try {
-        const result = await db.models.Order.findAll({
+        const result: any[] = await db.models.Order.findAll({
             where: { id: id },
             include: [
                 {
@@ -121,7 +120,11 @@ async function getOrderById(id: number) {
             ],
         });
 
-        const orderDetail = await db.models.OrderDetail.findAll({
+        if(result.length === 0) {
+            return abort(500, 'Order not found');
+        }
+
+        const orderDetail: any[]= await db.models.OrderDetail.findAll({
             where: { orderId: id },
             include: [
                 {
@@ -131,9 +134,13 @@ async function getOrderById(id: number) {
             ],
         });
 
-        const data: Model<any> = {
-            ...(result[0] as Model<any>).dataValues,
-            orderDetail: orderDetail,
+        if(orderDetail.length === 0) {
+            return abort(500, 'Order detail not found');
+        }
+
+        const data = {
+           order: result,
+           orderDetail: orderDetail
         };
 
         return data;
@@ -144,6 +151,7 @@ async function getOrderById(id: number) {
 
 async function getOrderDetailById(id: number) {
     try {
+        console.log(id)
         const result = await db.models.OrderDetail.findAll({
             where: { orderId: id },
             include: [

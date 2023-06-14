@@ -7,7 +7,7 @@ export async function getOrderDetailById(req: Request, res: Response) {
         const { orderId } = req.params;
 
         const parserId = parseInt(orderId as string);
-
+        console.log(parserId);
         const result = await orderService.getOrderDetailById(parserId);
 
         return res.status(200).send({

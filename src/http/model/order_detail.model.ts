@@ -1,5 +1,6 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional, Association } from 'sequelize';
 import sequelize from './db';
+import Product from './product.model';
 
 class OrderDetail extends Model<InferAttributes<OrderDetail>, InferCreationAttributes<OrderDetail>> {
     public id!: CreationOptional<number>;
@@ -12,6 +13,12 @@ class OrderDetail extends Model<InferAttributes<OrderDetail>, InferCreationAttri
     public productSize?: string;
     public createdAt?: Date;
     public updatedAt?: Date;
+
+    public readonly product?: Product; // Thêm thuộc tính `product` để truy cập thông tin sản phẩm
+
+    public static associations: {
+        product: Association<OrderDetail, Product>;
+    };
 }
 
 OrderDetail.init({
@@ -56,5 +63,7 @@ OrderDetail.init({
         modelName: "OrderDetail"
     }
 );
+
+OrderDetail.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
 
 export default OrderDetail;

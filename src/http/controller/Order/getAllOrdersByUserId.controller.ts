@@ -4,7 +4,8 @@ import { abort } from "../../helper/error";
 
 export async function getAllOrdersByUserId(req: Request, res: Response) {
     try {
-        const { page, limit, userId, sortBy } = req.query;
+        const {userId} = req.params;
+        const { page, limit, sortBy } = req.query;
 
         const parserPage = parseInt(page as string);
         const parserLimit = parseInt(limit as string);
