@@ -12,25 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrderById = void 0;
-const order_service_1 = __importDefault(require("../../service/order.service"));
-const error_1 = require("../../helper/error");
-function getOrderById(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const { id } = req.params;
-            const parserId = parseInt(id);
-            const result = yield order_service_1.default.getOrderById(parserId);
-            return res.status(200).send({
-                message: "Get order by id successfully",
-                result: result,
+const Role_1 = require("../enums/Role");
+const error_1 = require("../helper/error");
+const db_1 = __importDefault(require("../model/db"));
+const permission = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = req.body.user;
+        const userModel = yield db_1.default.models.User.findOne({ where: { id: user.id }, attributes: ['role'] });
+        const role = userModel ? userModel.getDataValue('role') : null;
+        if (role == Role_1.Role.USER) {
+            return res.status(403).send({
+                message: "No permission to access this resource"
             });
         }
-        catch (error) {
-            return (0, error_1.abort)(error.status, error.message);
-        }
-    });
-}
-exports.getOrderById = getOrderById;
-;
-//# sourceMappingURL=getOrderById.controller.js.map
+        next();
+    }
+    catch (error) {
+        return (0, error_1.abort)(error.status, error.message);
+    }
+});
+exports.default = permission;
+//# sourceMappingURL=permission.js.map

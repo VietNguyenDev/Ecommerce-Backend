@@ -20,6 +20,7 @@ function getOrderDetailById(req, res) {
         try {
             const { orderId } = req.params;
             const parserId = parseInt(orderId);
+            console.log(parserId);
             const result = yield order_service_1.default.getOrderDetailById(parserId);
             return res.status(200).send({
                 message: "Get order detail by id successfully",

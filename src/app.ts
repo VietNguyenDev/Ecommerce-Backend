@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
-
+import multer from 'multer';
 import express, {Application, Request, Response} from 'express';
 import productRoute from "./http/routes/product.routes";
 import categoryRoute from "./http/routes/category.routes";
@@ -17,7 +17,7 @@ import authRoute from "./http/routes/auth.routes";
 //App variables
 dotenv.config();
 const port: number = process.env.PORT ? parseInt(process.env.PORT) : 8080;
-
+const upload = multer();
 //App config
 const app: Application = express();
 app.use(helmet());
@@ -26,13 +26,15 @@ app.use(cors());
 app.use(bodyParser.json());
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true}));
-
+//for parsing multipart/form-data
+app.use(upload.array('images', 12));
+app.use(express.static('public'));
 
 app.get('/', (req: Request, res: Response) => {
     res.send('HomePage');
 });
 
-//routers
+// routers
 app.use('/api', productRoute);
 app.use('/api', categoryRoute);
 app.use('/api', userRoute);

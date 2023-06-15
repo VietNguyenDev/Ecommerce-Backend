@@ -20,13 +20,17 @@ function getUser(req) {
         const authorization = req.headers.authorization || '';
         if (authorization === '')
             return false;
+        //kiểm tra kiểu authorization
         if (!authorization.startsWith('Bearer '))
             return false;
+        //lấy token
         const token = authorization.slice(7, authorization.length);
+        //revert token to user
         const payload = yield (0, jwt_1.verifyToken)(token);
         if (payload === false)
             return false;
-        const user = yield user_model_1.default.findOne({ where: { id: payload } });
+        //tìm user theo id
+        const user = yield user_model_1.default.findOne({ where: { id: payload.id } });
         if (!user)
             return false;
         return user;
@@ -35,12 +39,13 @@ function getUser(req) {
 function auth(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield getUser(req);
+        //Check if user is logged in
         if (!user) {
             return res.status(401).send({
                 message: 'You must be logged in',
             });
         }
-        req.user = user;
+        req.body.user = user;
         return next();
     });
 }

@@ -18,7 +18,8 @@ const error_1 = require("../../helper/error");
 function getAllOrdersByUserId(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { page, limit, userId, sortBy } = req.query;
+            const { userId } = req.params;
+            const { page, limit, sortBy } = req.query;
             const parserPage = parseInt(page);
             const parserLimit = parseInt(limit);
             const parserUserId = parseInt(userId);

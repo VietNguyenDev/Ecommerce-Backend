@@ -15,7 +15,7 @@ router.post('/order/:userId', createOrder_controller_1.createOrder);
 router.get('/order', getAllOrders_controller_1.getAllOrders);
 router.get('/order/user/:userId', getAllOrdersByUserId_controller_1.getAllOrdersByUserId);
 router.get('/order/:id', getOrderById_controller_1.getOrderById);
-router.get('/order/:id/detail', getOrderDetailById_controller_1.getOrderDetailById);
-router.put('/order/:id/status', updateStatus_controller_1.updateStatus);
+router.get('/order/detail/:orderId', getOrderDetailById_controller_1.getOrderDetailById);
+router.put('/order/status/:orderId', updateStatus_controller_1.updateStatus);
 exports.default = router;
 //# sourceMappingURL=order.routes.js.map

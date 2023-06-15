@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const db_1 = __importDefault(require("./db"));
+const shipping_detail_model_1 = __importDefault(require("./shipping_detail.model"));
 class Order extends sequelize_1.Model {
 }
 Order.init({
@@ -36,5 +37,6 @@ Order.init({
     tableName: 'orders',
     modelName: 'Order',
 });
+Order.belongsTo(shipping_detail_model_1.default, { foreignKey: 'shippingId', as: 'shipping' });
 exports.default = Order;
 //# sourceMappingURL=order.model.js.map

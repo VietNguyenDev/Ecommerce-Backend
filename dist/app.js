@@ -30,6 +30,7 @@ const dotenv = __importStar(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const multer_1 = __importDefault(require("multer"));
 const express_1 = __importDefault(require("express"));
 const product_routes_1 = __importDefault(require("./http/routes/product.routes"));
 const category_routes_1 = __importDefault(require("./http/routes/category.routes"));
@@ -43,16 +44,22 @@ const auth_routes_1 = __importDefault(require("./http/routes/auth.routes"));
 //App variables
 dotenv.config();
 const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
+const upload = (0, multer_1.default)();
 //App config
 const app = (0, express_1.default)();
 app.use((0, helmet_1.default)());
 app.use((0, cors_1.default)());
+// for parsing application/json
 app.use(body_parser_1.default.json());
+// for parsing application/x-www-form-urlencoded
 app.use(body_parser_1.default.urlencoded({ extended: true }));
+//for parsing multipart/form-data
+app.use(upload.array('images', 12));
+app.use(express_1.default.static('public'));
 app.get('/', (req, res) => {
     res.send('HomePage');
 });
-//routers
+// routers
 app.use('/api', product_routes_1.default);
 app.use('/api', category_routes_1.default);
 app.use('/api', user_routes_1.default);

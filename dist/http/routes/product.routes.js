@@ -9,10 +9,17 @@ const createProduct_controller_1 = require("../controller/Product/createProduct.
 const updateProduct_controller_1 = require("../controller/Product/updateProduct.controller");
 const deleteProduct_controller_1 = require("../controller/Product/deleteProduct.controller");
 const auth_1 = require("../middleware/auth");
+const permission_1 = __importDefault(require("../middleware/permission"));
 const router = express_1.default.Router();
+//get product
 router.get('/products', getAllProduct_controller_1.getAllProducts);
-router.post('/products', auth_1.auth, createProduct_controller_1.createProduct);
-router.put('/products/:id', auth_1.auth, updateProduct_controller_1.updateProduct);
-router.post('/products/:id', auth_1.auth, deleteProduct_controller_1.deleteProduct);
+//create product
+router.post('/products', 
+//auth, 
+//permission,
+//upload.single('files'),
+createProduct_controller_1.createProduct);
+router.put('/products/:id', auth_1.auth, permission_1.default, updateProduct_controller_1.updateProduct);
+router.post('/products/:id', auth_1.auth, permission_1.default, deleteProduct_controller_1.deleteProduct);
 exports.default = router;
 //# sourceMappingURL=product.routes.js.map

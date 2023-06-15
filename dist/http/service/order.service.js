@@ -53,7 +53,7 @@ function getAllOrdersByUserId({ page, limit, userId, sortBy }) {
             }
             const result = yield model_1.default.models.Order.findAndCountAll({
                 where: { userId: userId },
-                order: [[sortBy, 'DESC']],
+                order: [['id', sortBy || 'DESC']],
                 offset: (page - 1) * limit,
                 include: [
                     {
@@ -63,7 +63,7 @@ function getAllOrdersByUserId({ page, limit, userId, sortBy }) {
                 ],
                 limit: limit,
             });
-            if (!result) {
+            if (result.rows.length === 0) {
                 return (0, error_1.abort)(500, 'Order not found');
             }
             return result;
@@ -126,6 +126,9 @@ function getOrderById(id) {
                     },
                 ],
             });
+            if (result.length === 0) {
+                return (0, error_1.abort)(500, 'Order not found');
+            }
             const orderDetail = yield model_1.default.models.OrderDetail.findAll({
                 where: { orderId: id },
                 include: [
@@ -135,7 +138,13 @@ function getOrderById(id) {
                     },
                 ],
             });
-            const data = Object.assign(Object.assign({}, result[0].dataValues), { orderDetail: orderDetail });
+            if (orderDetail.length === 0) {
+                return (0, error_1.abort)(500, 'Order detail not found');
+            }
+            const data = {
+                order: result,
+                orderDetail: orderDetail
+            };
             return data;
         }
         catch (error) {
@@ -147,6 +156,7 @@ function getOrderById(id) {
 function getOrderDetailById(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log(id);
             const result = yield model_1.default.models.OrderDetail.findAll({
                 where: { orderId: id },
                 include: [

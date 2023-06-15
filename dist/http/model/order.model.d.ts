@@ -1,4 +1,5 @@
-import { Model, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
+import { Model, InferAttributes, InferCreationAttributes, CreationOptional, Association } from 'sequelize';
+import Shipping from './shipping_detail.model';
 declare class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
     id: CreationOptional<number>;
     userId: number;
@@ -6,5 +7,9 @@ declare class Order extends Model<InferAttributes<Order>, InferCreationAttribute
     shippingId: number;
     createdAt?: Date;
     updatedAt?: Date;
+    readonly shipping?: Shipping;
+    static associations: {
+        shipping: Association<Order, Shipping>;
+    };
 }
 export default Order;

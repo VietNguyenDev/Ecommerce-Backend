@@ -1,5 +1,4 @@
 import Order from "../model/order.model";
-import { Model } from "sequelize";
 declare function createOrder({ userId, data }: {
     userId: number;
     data: any;
@@ -20,7 +19,10 @@ declare function getAllOrders({ page, limit }: {
     rows: Order[];
     count: number;
 }>;
-declare function getOrderById(id: number): Promise<Model<any, any>>;
+declare function getOrderById(id: number): Promise<{
+    order: any[];
+    orderDetail: any[];
+}>;
 declare function getOrderDetailById(id: number): Promise<import("../model/order_detail.model").default[]>;
 declare function updateStatus({ status, orderId }: {
     status: string;
