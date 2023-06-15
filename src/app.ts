@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
+
 import express, {Application, Request, Response} from 'express';
 import productRoute from "./http/routes/product.routes";
 import categoryRoute from "./http/routes/category.routes";
@@ -21,8 +22,11 @@ const port: number = process.env.PORT ? parseInt(process.env.PORT) : 8080;
 const app: Application = express();
 app.use(helmet());
 app.use(cors());
+// for parsing application/json
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true}));
+
 
 app.get('/', (req: Request, res: Response) => {
     res.send('HomePage');

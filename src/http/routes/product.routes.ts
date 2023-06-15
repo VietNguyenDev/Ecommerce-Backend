@@ -5,11 +5,17 @@ import { updateProduct } from '../controller/Product/updateProduct.controller';
 import { deleteProduct } from '../controller/Product/deleteProduct.controller';
 import { auth } from '../middleware/auth';
 import permission from '../middleware/permission';
+import upload from '../middleware/uploadImage';
 
 const router = express.Router();
-
+//get product
 router.get('/products', getAllProducts);
-router.post('/products', auth, permission, createProduct);
+//create product
+router.post('/products',
+    auth, 
+    permission,
+    upload.single('files'),
+    createProduct);
 router.put('/products/:id', auth, permission, updateProduct);
 router.post('/products/:id', auth, permission, deleteProduct);
 
