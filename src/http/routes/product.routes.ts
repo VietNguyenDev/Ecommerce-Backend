@@ -12,9 +12,9 @@ const router = express.Router();
 router.get('/products', getAllProducts);
 //create product
 router.post('/products',
-    //auth, 
-    //permission,
-    //upload.single('files'),
+    auth, 
+    permission,
+    upload.single('files'),
     createProduct);
 router.put('/products/:id', auth, permission, updateProduct);
 router.post('/products/:id', auth, permission, deleteProduct);

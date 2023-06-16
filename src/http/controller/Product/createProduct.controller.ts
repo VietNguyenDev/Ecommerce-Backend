@@ -3,6 +3,8 @@ import Joi from "joi";
 import productService from "../../service/product.service";
 import { abort } from "../../helper/error";
 import Product from "../../model/product.model";
+import upload from "../../middleware/uploadImage";
+import uploadImage from "../../config/cloudinary";
 
 async function validate(productName: string, productCode: string, productImg: string, productSize: string, productColor: string, originalPrice: number, discount: number, productDescription: string) {
     try {
@@ -25,7 +27,9 @@ async function validate(productName: string, productCode: string, productImg: st
 
 export async function createProduct(req: Request, res: Response) {
     try {
-        const { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription } = req.body;
+        const file = req.files as Express.Multer.File[];
+        const productImg: string = await uploadImage(file[0]?.path, file[0].filename) as string;
+        const { productName, productCode, productSize, productColor, originalPrice, discount, productDescription } = req.body;
         await validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription);
         const data: Product = await productService.createProduct({ productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
 
