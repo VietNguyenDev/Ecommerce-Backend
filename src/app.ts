@@ -17,7 +17,7 @@ import authRoute from "./http/routes/auth.routes";
 //App variables
 dotenv.config();
 const port: number = process.env.PORT ? parseInt(process.env.PORT) : 8080;
-const upload = multer();
+const upload = multer({ dest: './public/images' });
 //App config
 const app: Application = express();
 app.use(helmet());
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 //for parsing multipart/form-data
 app.use(upload.array('images', 12));
-app.use(express.static('public'));
+app.use(express.static('public/images'));
 
 app.get('/', (req: Request, res: Response) => {
     res.send('HomePage');

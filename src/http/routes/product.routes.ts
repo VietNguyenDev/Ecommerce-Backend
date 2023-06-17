@@ -14,8 +14,9 @@ router.get('/products', getAllProducts);
 router.post('/products',
     auth, 
     permission,
-    upload.single('files'),
-    createProduct);
+    upload.single('images'),
+    createProduct
+    );
 router.put('/products/:id', auth, permission, updateProduct);
 router.post('/products/:id', auth, permission, deleteProduct);
 
