@@ -26,8 +26,8 @@ async function validate(productName: string, productCode: string, productImg: st
 
 export async function createProduct(req: Request, res: Response) {
     try {
-        const files = req.files as Express.Multer.File[];
-        const productImg : string = await uploadImage(files[0].path, files[0].filename) as string;
+        const file = req.files as Express.Multer.File[];
+        const productImg: string = await uploadImage(file[0]?.path, file[0].filename) as string;
         const { productName, productCode, productSize, productColor, originalPrice, discount, productDescription } = req.body;
         await validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription);
         const data: Product = await productService.createProduct({ productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
