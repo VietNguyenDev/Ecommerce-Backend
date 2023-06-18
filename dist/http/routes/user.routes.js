@@ -10,10 +10,11 @@ const updateUser_controller_1 = require("../controller/User/updateUser.controlle
 const deleteUser_controller_1 = require("../controller/User/deleteUser.controller");
 const auth_1 = require("../middleware/auth");
 const permission_1 = __importDefault(require("../middleware/permission"));
+const uploadImage_1 = __importDefault(require("../middleware/uploadImage"));
 const router = express_1.default.Router();
 router.get('/user', auth_1.auth, permission_1.default, getAllUser_controller_1.getAllUser);
 router.get('/user/:id', auth_1.auth, permission_1.default, getUserById_controller_1.getUserById);
-router.put('/user/:id', auth_1.auth, updateUser_controller_1.updateUser);
+router.put('/user/:id', auth_1.auth, uploadImage_1.default.single("images"), updateUser_controller_1.updateUser);
 router.post('/user/:id', auth_1.auth, permission_1.default, deleteUser_controller_1.deleteUser);
 exports.default = router;
 //# sourceMappingURL=user.routes.js.map

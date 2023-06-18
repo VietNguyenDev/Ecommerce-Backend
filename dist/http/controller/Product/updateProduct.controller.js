@@ -16,6 +16,7 @@ exports.updateProduct = void 0;
 const joi_1 = __importDefault(require("joi"));
 const product_service_1 = __importDefault(require("../../service/product.service"));
 const error_1 = require("../../helper/error");
+const cloudinary_1 = __importDefault(require("../../config/cloudinary"));
 function validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -41,7 +42,10 @@ function updateProduct(req, res) {
         try {
             const { id } = req.params;
             const parseId = parseInt(id);
-            const { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription } = req.body;
+            const { file } = req;
+            const productImage = yield (0, cloudinary_1.default)(file === null || file === void 0 ? void 0 : file.path, file === null || file === void 0 ? void 0 : file.filename);
+            const productImg = productImage.secure_url;
+            const { productName, productCode, productSize, productColor, originalPrice, discount, productDescription } = req.body;
             yield validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription);
             const data = yield product_service_1.default.updateProduct(parseId, { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
             return res.status(200).send({

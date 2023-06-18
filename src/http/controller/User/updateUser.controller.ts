@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Joi from "joi";
 import userService from "../../service/user.service";
 import { abort } from "../../helper/error";
+import uploadImage from "../../config/cloudinary";
 
 async function validate(fullName: string, phoneNumber: string, dateOfBirth: Date, address: string, gender: number, image: string) {
     try {
@@ -26,7 +27,11 @@ export async function updateUser(req: Request, res: Response) {
 
         const parsedId = parseInt(id as string, 10);
 
-        const { fullName, phoneNumber, dateOfBirth, address, gender, image } = req.body;
+        const { file } = req;
+        const userImage: any = await uploadImage(file?.path, file?.filename);
+        const image = userImage.secure_url;
+
+        const { fullName, phoneNumber, dateOfBirth, address, gender } = req.body;
         await validate(fullName, phoneNumber, dateOfBirth, address, gender, image)
 
         const data = await userService.updateUser(parsedId, { fullName, phoneNumber, dateOfBirth, address, gender, image});
