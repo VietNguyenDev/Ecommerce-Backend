@@ -28,7 +28,7 @@ function checkFileType(file, cb) {
 }
 const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './src/public/images');
+        cb(null, './public/images');
     },
     filename: function (req, file, cb) {
         cb(null, `${Date.now()}-${file.originalname}`);

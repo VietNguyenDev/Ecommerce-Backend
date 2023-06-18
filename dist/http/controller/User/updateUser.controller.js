@@ -16,6 +16,7 @@ exports.updateUser = void 0;
 const joi_1 = __importDefault(require("joi"));
 const user_service_1 = __importDefault(require("../../service/user.service"));
 const error_1 = require("../../helper/error");
+const cloudinary_1 = __importDefault(require("../../config/cloudinary"));
 function validate(fullName, phoneNumber, dateOfBirth, address, gender, image) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -39,7 +40,10 @@ function updateUser(req, res) {
         try {
             const { id } = req.params;
             const parsedId = parseInt(id, 10);
-            const { fullName, phoneNumber, dateOfBirth, address, gender, image } = req.body;
+            const { file } = req;
+            const userImage = yield (0, cloudinary_1.default)(file === null || file === void 0 ? void 0 : file.path, file === null || file === void 0 ? void 0 : file.filename);
+            const image = userImage.secure_url;
+            const { fullName, phoneNumber, dateOfBirth, address, gender } = req.body;
             yield validate(fullName, phoneNumber, dateOfBirth, address, gender, image);
             const data = yield user_service_1.default.updateUser(parsedId, { fullName, phoneNumber, dateOfBirth, address, gender, image });
             return res.status(200).send({
