@@ -16,8 +16,8 @@ const router = express_1.default.Router();
 router.get('/products', getAllProduct_controller_1.getAllProducts);
 //create product
 router.post('/products', 
-// auth, 
-// permission,
+auth, 
+permission,
 uploadImage_1.default.single('images'), createProduct_controller_1.createProduct);
 router.put('/products/:id', auth_1.auth, permission_1.default, updateProduct_controller_1.updateProduct);
 router.post('/products/:id', auth_1.auth, permission_1.default, deleteProduct_controller_1.deleteProduct);
