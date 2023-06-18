@@ -12,8 +12,8 @@ const router = express.Router();
 router.get('/products', getAllProducts);
 //create product
 router.post('/products',
-    // auth, 
-    // permission,
+    auth, 
+    permission,
     upload.single('images'),
     createProduct
     );
