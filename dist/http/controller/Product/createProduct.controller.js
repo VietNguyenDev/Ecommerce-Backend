@@ -38,11 +38,11 @@ function validate(productName, productCode, productImg, productSize, productColo
     });
 }
 function createProduct(req, res) {
-    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const file = req.files;
-            const productImg = yield (0, cloudinary_1.default)((_a = file[0]) === null || _a === void 0 ? void 0 : _a.path, file[0].filename);
+            const { file } = req;
+            const productImage = yield (0, cloudinary_1.default)(file === null || file === void 0 ? void 0 : file.path, file === null || file === void 0 ? void 0 : file.filename);
+            const productImg = productImage.secure_url;
             const { productName, productCode, productSize, productColor, originalPrice, discount, productDescription } = req.body;
             yield validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription);
             const data = yield product_service_1.default.createProduct({ productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
@@ -52,7 +52,8 @@ function createProduct(req, res) {
             });
         }
         catch (error) {
-            return (0, error_1.abort)(500, error.message);
+            console.log(error);
+            // return abort(error.status, error.message);
         }
     });
 }

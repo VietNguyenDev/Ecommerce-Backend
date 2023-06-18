@@ -1,2 +1,2 @@
-declare function uploadImage(localFilePath: string, fileName: string): Promise<unknown>;
+declare function uploadImage(localFilePath: any, fileName: any): Promise<unknown>;
 export default uploadImage;

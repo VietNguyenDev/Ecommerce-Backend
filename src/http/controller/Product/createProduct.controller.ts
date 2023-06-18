@@ -26,7 +26,10 @@ async function validate(productName: string, productCode: string, productImg: st
 
 export async function createProduct(req: Request, res: Response) {
     try {
-        const { productName, productCode, productSize, productImg, productColor, originalPrice, discount, productDescription } = req.body;
+        const { file } = req;
+        const productImage: any = await uploadImage(file?.path, file?.filename);
+        const productImg = productImage.secure_url;
+        const { productName, productCode, productSize, productColor, originalPrice, discount, productDescription } = req.body;
         await validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription);
         const data: Product = await productService.createProduct({ productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
 
@@ -35,6 +38,7 @@ export async function createProduct(req: Request, res: Response) {
             data: data
         });
     } catch (error: any) {
-        return abort(error.status, error.message);
+        console.log(error);
+        // return abort(error.status, error.message);
     }
 }
