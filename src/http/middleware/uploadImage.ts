@@ -15,7 +15,7 @@ async function checkFileType(file: Express.Multer.File, cb: any) {
 
 const storage = multer.diskStorage({
     destination: function(req: Request, file: Express.Multer.File, cb: any) {
-        cb(null, './src/public/images');
+        cb(null, './public/images');
     },
 
     filename: function(req: Request, file: Express.Multer.File, cb: any) {

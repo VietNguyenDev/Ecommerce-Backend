@@ -17,7 +17,13 @@ router.post('/products',
     upload.single('images'),
     createProduct
     );
-router.put('/products/:id', auth, permission, updateProduct);
+//update product
+router.put('/products/:id', 
+    auth, 
+    permission,
+    upload.single('images'),
+    updateProduct);
+//delete product
 router.post('/products/:id', auth, permission, deleteProduct);
 
 export default router;

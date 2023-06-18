@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Joi from "joi";
 import productService from "../../service/product.service";
 import { abort } from "../../helper/error";
+import uploadImage from "../../config/cloudinary";
 
 async function validate(productName: string, productCode: string, productImg: string, productSize: string, productColor: string, originalPrice: number, discount: number, productDescription: string) {
     try {
@@ -26,8 +27,10 @@ export async function updateProduct(req: Request, res: Response) {
     try {
         const { id } = req.params;
         const parseId = parseInt(id);
-
-        const { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription } = req.body;
+        const { file } = req;
+        const productImage: any = await uploadImage(file?.path, file?.filename);
+        const productImg = productImage.secure_url;
+        const { productName, productCode, productSize, productColor, originalPrice, discount, productDescription } = req.body;
         await validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription);
 
         const data = await productService.updateProduct(parseId, { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
