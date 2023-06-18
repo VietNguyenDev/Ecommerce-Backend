@@ -10,11 +10,15 @@ const updateProduct_controller_1 = require("../controller/Product/updateProduct.
 const deleteProduct_controller_1 = require("../controller/Product/deleteProduct.controller");
 const auth_1 = require("../middleware/auth");
 const permission_1 = __importDefault(require("../middleware/permission"));
+const uploadImage_1 = __importDefault(require("../middleware/uploadImage"));
 const router = express_1.default.Router();
 //get product
 router.get('/products', getAllProduct_controller_1.getAllProducts);
 //create product
-router.post('/products', auth_1.auth, permission_1.default, createProduct_controller_1.createProduct);
+router.post('/products', 
+auth, 
+permission,
+uploadImage_1.default.single('images'), createProduct_controller_1.createProduct);
 router.put('/products/:id', auth_1.auth, permission_1.default, updateProduct_controller_1.updateProduct);
 router.post('/products/:id', auth_1.auth, permission_1.default, deleteProduct_controller_1.deleteProduct);
 exports.default = router;

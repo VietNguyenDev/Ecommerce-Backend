@@ -16,6 +16,7 @@ exports.createProduct = void 0;
 const joi_1 = __importDefault(require("joi"));
 const product_service_1 = __importDefault(require("../../service/product.service"));
 const error_1 = require("../../helper/error");
+const cloudinary_1 = __importDefault(require("../../config/cloudinary"));
 function validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -39,7 +40,10 @@ function validate(productName, productCode, productImg, productSize, productColo
 function createProduct(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription } = req.body;
+            const { file } = req;
+            const productImage = yield (0, cloudinary_1.default)(file === null || file === void 0 ? void 0 : file.path, file === null || file === void 0 ? void 0 : file.filename);
+            const productImg = productImage.secure_url;
+            const { productName, productCode, productSize, productColor, originalPrice, discount, productDescription } = req.body;
             yield validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription);
             const data = yield product_service_1.default.createProduct({ productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
             return res.status(200).send({
@@ -48,7 +52,8 @@ function createProduct(req, res) {
             });
         }
         catch (error) {
-            return (0, error_1.abort)(500, error.message);
+            console.log(error);
+            // return abort(error.status, error.message);
         }
     });
 }

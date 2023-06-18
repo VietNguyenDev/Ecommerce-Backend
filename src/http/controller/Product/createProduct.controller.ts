@@ -3,6 +3,7 @@ import Joi from "joi";
 import productService from "../../service/product.service";
 import { abort } from "../../helper/error";
 import Product from "../../model/product.model";
+import uploadImage from "../../config/cloudinary"
 
 async function validate(productName: string, productCode: string, productImg: string, productSize: string, productColor: string, originalPrice: number, discount: number, productDescription: string) {
     try {
@@ -25,7 +26,10 @@ async function validate(productName: string, productCode: string, productImg: st
 
 export async function createProduct(req: Request, res: Response) {
     try {
-        const { productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription } = req.body;
+        const { file } = req;
+        const productImage: any = await uploadImage(file?.path, file?.filename);
+        const productImg = productImage.secure_url;
+        const { productName, productCode, productSize, productColor, originalPrice, discount, productDescription } = req.body;
         await validate(productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription);
         const data: Product = await productService.createProduct({ productName, productCode, productImg, productSize, productColor, originalPrice, discount, productDescription });
 
@@ -34,6 +38,7 @@ export async function createProduct(req: Request, res: Response) {
             data: data
         });
     } catch (error: any) {
-        return abort(500, error.message);
+        console.log(error);
+        // return abort(error.status, error.message);
     }
 }
